@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:food_app/appbar.dart';
 import 'package:food_app/Bigappbar.dart';
@@ -12,15 +11,11 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  
-
-  
   int _curentIndex = 0;
   int pageindex;
-  double BarHeight;
-  
-  final  List AppbarList = ['Рецепты', 'Тренер', 'Профиль'];
 
+
+  final List AppbarList = ['Рецепты', 'Тренер', 'Профиль'];
 
   Widget callpages(_curentIndex) {
     switch (_curentIndex) {
@@ -35,47 +30,31 @@ class _homeState extends State<home> {
       default:
     }
   }
-  
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Colors.white,
-      
-      // appBar: Myappbar(_curentIndex),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
 
-        toolbarHeight: BarHeight,
-        
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Colors.black,
-                  blurRadius: 4,
-                )
-              ],
-              gradient: LinearGradient(
-                  colors: [Colors.orange[300], Colors.red[400]])),
-        ),
-        title: Text(
-          AppbarList[_curentIndex],
-          style: TextStyle(fontSize: 18),
-        ),
-        // backgroundColor: Colors.orange[400],
-        centerTitle: true,
-      ),
+      // appBar: Myappbar(_curentIndex),
+      appBar: myAppBar(),
 
       //Create main Column
-      
+
       body: callpages(_curentIndex),
 
-      bottomNavigationBar: Container(
+      bottomNavigationBar: myBottomBar(),
+    );
+  }
+
+  Container myBottomBar() {
+    return Container(
         decoration: BoxDecoration(boxShadow: <BoxShadow>[
-          BoxShadow(color: Colors.black26, blurRadius: 4, spreadRadius: 3)
+          BoxShadow(
+            // color: Colors.black12,
+            color: Color(0xFF4B1A39).withOpacity(0.2), 
+            blurRadius: 4, 
+            )
         ]),
         child: BottomNavigationBar(
           elevation: 1,
@@ -101,21 +80,36 @@ class _homeState extends State<home> {
             ),
           ],
           onTap: (index) {
-            
             setState(() {
               _curentIndex = index;
-              });
-            BarHeight = (_curentIndex == 1)? BarHeight=200.0: BarHeight = 30.0;
+            });
+            
           },
-          )
-      ),
-    );
+        ));
   }
 
+  AppBar myAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
 
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: (_curentIndex == 0) ? 4.0 : 0.0,
+              )
+            ],
+            gradient: LinearGradient(
+                colors: [Colors.orange[300], Colors.red[400]])),
+      ),
+      title: Text(
+        AppbarList[_curentIndex],
+        style: TextStyle(fontSize: 18),
+      ),
+      // backgroundColor: Colors.orange[400],
+      centerTitle: true,
+    );
+  }
 }
-
-
-
-
-    
