@@ -53,9 +53,9 @@ class _homeState extends State<home> {
         ),
         child: Row(
           children: <Widget>[
-            buildBottomBar('icons/knife.svg', 30.15, 30.50, 0),
-            buildBottomBar('icons/apple.svg', 31.0, 31.35, 1),
-            buildBottomBar('icons/profile.svg', 29.85, 30.20, 2),
+            buildBottomBar('assets/icons/knife.svg', 30.15, 30.50, 0),
+            buildBottomBar('assets/icons/apple.svg', 31.0, 31.35, 1),
+            buildBottomBar('assets/icons/profile.svg', 29.85, 30.20, 2),
           ],
         ),
       ),
@@ -76,7 +76,7 @@ class _homeState extends State<home> {
                 height: height, 
                 width: width, 
                 fit: BoxFit.fill,
-                color: Colors.black,
+                color: (_curentIndex == index)? Colors.orange[900] : Colors.black,
               ), 
               onPressed: null
             ),
@@ -85,12 +85,12 @@ class _homeState extends State<home> {
             decoration: index == _curentIndex ? BoxDecoration(
                 color: index == _curentIndex ? Colors.green: Colors.white,
                 border: Border(
-                  bottom: BorderSide(width: 4, color: Colors.green[800]),
+                  bottom: BorderSide(width: 4, color: Colors.orange[800]),
                 ),
                 gradient:  LinearGradient(
                   colors: [
-                    Colors.green.withOpacity(0.3),
-                    Colors.green.withOpacity(0.015)
+                    Colors.orange.withOpacity(0.3),
+                    Colors.orange.withOpacity(0.015)
                   ],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter
@@ -119,7 +119,17 @@ class _homeState extends State<home> {
       ),
       title: Text(
         AppbarList[_curentIndex],
-        style: TextStyle(fontSize: 18),
+        style: TextStyle(
+          fontSize: 18,      
+          color: Colors.white,
+          shadows: <Shadow>[
+            Shadow(
+              offset: Offset(1.5 , 1.5 ),
+              blurRadius: 8.0,
+              color: Color.fromARGB(125, 0, 0, 255),
+            ),
+          ], 
+        ),
       ),
       // backgroundColor: Colors.orange[400],
       centerTitle: true,
