@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/appbar.dart';
-import 'package:food_app/Bigappbar.dart';
+import 'package:flutter_svg/svg.dart';
+
 import 'package:food_app/pages/page1.dart';
 import 'package:food_app/pages/page2.dart';
 import 'package:food_app/pages/page3.dart';
@@ -36,57 +36,70 @@ class _homeState extends State<home> {
     return Scaffold(
       backgroundColor: Colors.white,
 
-      // appBar: Myappbar(_curentIndex),
       appBar: myAppBar(),
 
-      //Create main Column
-
       body: callpages(_curentIndex),
-
-      bottomNavigationBar: myBottomBar(),
+      
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              // color: Colors.black12,
+              color: Color(0xFF4B1A39).withOpacity(0.2), 
+              blurRadius: 4, 
+            )
+          ]
+        ),
+        child: Row(
+          children: <Widget>[
+            buildBottomBar('icons/knife.svg', 30.15, 30.50, 0),
+            buildBottomBar('icons/apple.svg', 31.0, 31.35, 1),
+            buildBottomBar('icons/profile.svg', 29.85, 30.20, 2),
+          ],
+        ),
+      ),
     );
   }
 
-  Container myBottomBar() {
-    return Container(
-        decoration: BoxDecoration(boxShadow: <BoxShadow>[
-          BoxShadow(
-            // color: Colors.black12,
-            color: Color(0xFF4B1A39).withOpacity(0.2), 
-            blurRadius: 4, 
-            )
-        ]),
-        child: BottomNavigationBar(
-          elevation: 1,
-          selectedFontSize: 0,
-          iconSize: 31,
-          unselectedItemColor: Colors.black,
-          selectedItemColor: Colors.green[500],
-          backgroundColor: Colors.white,
-          currentIndex: _curentIndex,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.restaurant_outlined),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              // icon:  SvgPicture.asset('icons/trainer.svg'),
-              icon: Icon(Icons.emoji_events_outlined),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
-              label: '',
-            ),
-          ],
-          onTap: (index) {
+ Widget buildBottomBar(String route,double height, double width, int index) {
+    return GestureDetector(
+          onTap: (){
             setState(() {
               _curentIndex = index;
             });
-            
           },
-        ));
+          child: Container( 
+            child: IconButton(
+              icon: SvgPicture.asset(
+                route, 
+                height: height, 
+                width: width, 
+                fit: BoxFit.fill,
+                color: Colors.black,
+              ), 
+              onPressed: null
+            ),
+            height: MediaQuery.of(context).size.height*0.07,
+            width: MediaQuery.of(context).size.width/3,
+            decoration: index == _curentIndex ? BoxDecoration(
+                color: index == _curentIndex ? Colors.green: Colors.white,
+                border: Border(
+                  bottom: BorderSide(width: 4, color: Colors.green[800]),
+                ),
+                gradient:  LinearGradient(
+                  colors: [
+                    Colors.green.withOpacity(0.3),
+                    Colors.green.withOpacity(0.015)
+                  ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter
+                ),  
+              ) : BoxDecoration(), 
+          ),
+    );
   }
+
 
   AppBar myAppBar() {
     return AppBar(
@@ -95,12 +108,12 @@ class _homeState extends State<home> {
 
       flexibleSpace: Container(
         decoration: BoxDecoration(
-            boxShadow: <BoxShadow>[
+            boxShadow: (_curentIndex == 0)? <BoxShadow>[
               BoxShadow(
                 color: Colors.black,
-                blurRadius: (_curentIndex == 0) ? 4.0 : 0.0,
-              )
-            ],
+                blurRadius: 4.0,
+              )] : <BoxShadow>[],
+              
             gradient: LinearGradient(
                 colors: [Colors.orange[300], Colors.red[400]])),
       ),

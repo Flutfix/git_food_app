@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 
   class Pageone extends StatelessWidget{
@@ -92,6 +93,7 @@ import 'package:flutter/material.dart';
                       Text('калорийность'),
                     ],
                   ),
+                  
                 ],
               ),
             )),
